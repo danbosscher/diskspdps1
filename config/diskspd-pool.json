@@ -1,0 +1,73 @@
+{
+    "parameters": {
+        "vmSize": {
+            "type": "string",
+            "defaultValue": "standard_d2s_v3",
+            "metadata": {
+                "description": "The size of the virtual machines that run the application"
+            }
+        },
+        "vmCount": {
+            "type": "int",
+            "defaultValue": 0,
+            "metadata": {
+                "description": "The number of virtual machines"
+            }
+        },
+        "SpotvmCount": {
+            "type": "int",
+            "defaultValue": 100,
+            "metadata": {
+                "description": "The number of Spot VM machines"
+            }
+        },
+        "poolId": {
+            "type": "string",
+            "defaultValue": "DiskSpdPool",
+            "metadata": {
+                "description": "The id of the Azure Batch pool"
+            }
+        }
+    },
+    "pool": {
+        "type": "Microsoft.Batch/batchAccounts/pools",
+        "apiVersion": "2022-06-01",
+        "properties": {
+            "id": "[parameters('poolId')]",
+            "virtualMachineConfiguration": {
+                "imageReference": { 
+                    "publisher": "microsoftwindowsserver",
+                    "offer": "windowsserver",
+                    "sku": "2022-datacenter-core"
+                },
+                "nodeAgentSKUId": "batch.node.windows amd64"
+            },
+            "vmSize": "[parameters('vmSize')]",
+            "targetDedicatedNodes": "[parameters('vmCount')]",
+            "targetLowPriorityNodes": "[parameters('SpotvmCount')]",
+            "startTask": {
+                "commandLine": "cmd /c @\"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command \"iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/Azure/batch-insights/master/scripts/run-windows.ps1'))\"",
+                "environmentSettings": [
+                    {
+                        "name": "APP_INSIGHTS_INSTRUMENTATION_KEY",
+                        "value": "08db8b8e-4987-4585-a415-de46f0ec5d80"
+                    },
+                    {
+                        "name": "APP_INSIGHTS_APP_ID",
+                        "value": "8f3b998a-a77a-4cd0-b20f-d1c04aefbaa5"
+                    },
+                    {
+                        "name": "BATCH_INSIGHTS_DOWNLOAD_URL",
+                        "value": "https://github.com/Azure/batch-insights/releases/download/v1.3.0/batch-insights.exe"
+                    }
+                ],
+                "userIdentity": {
+                    "autoUser": {
+                        "scope": "pool",
+                        "elevationLevel": "admin"
+                    }
+                }
+            }
+        }
+    }
+}

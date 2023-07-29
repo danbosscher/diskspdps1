@@ -3,7 +3,7 @@
         "type": "Microsoft.Batch/batchAccounts/jobs",
         "apiVersion": "2016-12-01",
         "properties": {
-            "id": "diskspd",
+            "id": "diskspd-ai-2",
             "constraints": {
                 "maxWallClockTime": "PT5H",
                 "maxTaskRetryCount": 1
