@@ -1,5 +1,4 @@
 ## Powershell script to run Diskspd across Azure Batch nodes
-## https://github.com/danbosscher/diskspdps1
 
 # Variables
 # Grab diskspd if not already installed
