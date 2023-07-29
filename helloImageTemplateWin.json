@@ -1,0 +1,78 @@
+{
+    "type": "Microsoft.VirtualMachineImages/imageTemplates",
+    "apiVersion": "2020-02-14",
+    "location": "WestEurope",
+    "dependsOn": [],
+    "tags": {
+        "imagebuilderTemplate": "windows10",
+        "userIdentity": "enabled"
+            },
+        "identity": {
+            "type": "UserAssigned",
+                    "userAssignedIdentities": {
+                    "/subscriptions/d7e436f4-199b-4935-9faa-fb07fa8075d8/resourcegroups/dabossch-imagefarm/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aibBuiUserId1690638965": {}
+                        
+                }
+                },
+    "properties": {
+
+        "buildTimeoutInMinutes" : 100,
+
+        "vmProfile": 
+                {
+                "vmSize": "standard_nv12s_v3",
+                "osDiskSizeGB": 512
+                },
+        
+        "source": {
+            "type": "PlatformImage",
+                "publisher": "MicrosoftWindowsDesktop",
+                "offer": "Windows-10",
+                "sku": "20h2-ent",
+                "version": "19042.2965.230505"
+            
+        },
+        "customize": [
+            {
+                "type": "PowerShell",
+                "name": "CreateBuildPath",
+                "runElevated": false,
+                "scriptUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/testPsScript.ps1"
+            },
+            {
+                "type": "WindowsRestart",
+                "restartCheckCommand": "echo Azure-Image-Builder-Restarted-the-VM  > c:\\buildArtifacts\\azureImageBuilderRestart.txt",
+                "restartTimeout": "5m"
+            },
+            {
+                "type": "File",
+                "name": "downloadBuildArtifacts",
+                "sourceUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/quickquickstarts/exampleArtifacts/buildArtifacts/index.html",
+                "destination":"c:\\buildArtifacts\\index.html"
+            },
+
+            {
+                "type": "PowerShell",
+                "name": "settingUpMgmtAgtPath",
+                "runElevated": false,
+                "inline": [
+                    "mkdir c:\\buildActions",
+                    "echo Azure-Image-Builder-Was-Here  > c:\\buildActions\\buildActionsOutput.txt"
+                ]
+                }
+        ],
+        "distribute": 
+            [
+                {   "type":"ManagedImage",
+                    "imageId": "/subscriptions/d7e436f4-199b-4935-9faa-fb07fa8075d8/resourceGroups/dabossch-imagefarm/providers/Microsoft.Compute/images/AWinimage",
+                    "location": "WestEurope",
+                    "runOutputName": "aibWindows",
+                    "artifactTags": {
+                        "source": "azVmImageBuilder",
+                        "baseosimg": "windows10"
+                    }
+                }
+            ]
+        }
+}
+

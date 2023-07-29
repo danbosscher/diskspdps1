@@ -27,7 +27,7 @@
                           "elevationLevel": "admin"
                         }
                       },
-                    "commandLine": "powershell -command (iex ((new-object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/danbosscher/diskspdps1/main/nodesetup/main.ps1')))",
+                    "commandLine": "powershell -command (iex ((new-object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/danbosscher/diskspdps1/main/nodesetup/main-quick.ps1')))",
                     "constraints": {
                         "retentionTime":"PT12H"
                     },

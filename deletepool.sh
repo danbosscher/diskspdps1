@@ -1,0 +1,1 @@
+az batch pool delete --pool-id DiskSpdPool --yes

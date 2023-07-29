@@ -16,14 +16,14 @@
         },
         "SpotvmCount": {
             "type": "int",
-            "defaultValue": 40,
+            "defaultValue": 1,
             "metadata": {
                 "description": "The number of Spot VM machines"
             }
         },
         "poolId": {
             "type": "string",
-            "defaultValue": "DiskSpdPool",
+            "defaultValue": "DiskSpdDataDiskPool",
             "metadata": {
                 "description": "The id of the Azure Batch pool"
             }
@@ -40,7 +40,15 @@
                     "offer": "windowsserver",
                     "sku": "2022-datacenter-core"
                 },
-                "nodeAgentSKUId": "batch.node.windows amd64"
+                "nodeAgentSKUId": "batch.node.windows amd64",
+                "dataDisks": [
+                    {
+                      "lun": 0,
+                      "caching": "readwrite",
+                      "diskSizeGB": 512,
+                      "storageAccountType": "premium_lrs"
+                    }
+                  ]
             },
             "vmSize": "[parameters('vmSize')]",
             "targetDedicatedNodes": "[parameters('vmCount')]",
