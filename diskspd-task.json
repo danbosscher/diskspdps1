@@ -1,0 +1,10 @@
+{
+  "id": "diskspd",
+  "commandLine": "powershell -command (iex ((new-object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/danbosscher/diskspdps1/main/main.ps1')))",
+  "userIdentity": {
+    "autoUser": {
+      "scope": "task",
+      "elevationLevel": "admin"
+    }
+  }
+}
