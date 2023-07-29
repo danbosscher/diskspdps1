@@ -3,13 +3,13 @@
         "type": "Microsoft.Batch/batchAccounts/jobs",
         "apiVersion": "2016-12-01",
         "properties": {
-            "id": "diskspd-ai-2",
+            "id": "diskspd-ai",
             "constraints": {
                 "maxWallClockTime": "PT5H",
                 "maxTaskRetryCount": 1
             },
             "poolInfo": {
-                "poolId": "d2s"
+                "poolId": "DiskSpdPool"
             },
             "taskFactory": {
                 "type": "parametricSweep",
