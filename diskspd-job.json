@@ -9,7 +9,7 @@
                 "maxTaskRetryCount": 1
             },
             "poolInfo": {
-                "poolId": "nv12"
+                "poolId": "d2s"
             },
             "taskFactory": {
                 "type": "parametricSweep",
