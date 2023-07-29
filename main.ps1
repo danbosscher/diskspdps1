@@ -7,11 +7,11 @@ $temp="C:\temp"
 $diskspddir="C:\diskspd"
 
 # Grab diskspd if not already installed
-if (-not(Test-Path -Path $diskspd)) {
+if (-not(Test-Path -Path $diskspddir)) {
     try {
         $client = new-object System.Net.WebClient
         $client.DownloadFile("https://aka.ms/getdiskspd","$temp\diskspd.zip")
-        Expand-Archive -LiteralPath $temp\diskspd.zip -DestinationPath $diskspd
+        Expand-Archive -LiteralPath $temp\diskspd.zip -DestinationPath $diskspddir
     }
     catch {
         Write-Output "Error downloading or extracting diskspd archive: $_"
