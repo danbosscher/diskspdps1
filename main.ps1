@@ -4,7 +4,8 @@
 # Variables
 $url="https://aka.ms/getdiskspd"
 $temp="C:\temp"
-$diskspd="C:\diskspd"
+$diskspddir="C:\diskspd"
+$diskspdexe="C:\diskspd\amd64\diskspd.exe"
 
 # Grab diskspd if not already installed
 if (-not(Test-Path -Path $diskspd)) {
@@ -35,4 +36,4 @@ else {
 }
 
 # Run diskspd
-$diskspd\amd64\diskspd.exe -d10 -W15 -C15 -L -r -w40 -t8 -b64K -Su -c10G $temp\test.dat
+$diskspdexe -d10 -W15 -C15 -L -r -w40 -t8 -b64K -Su -c10G $temp\test.dat
