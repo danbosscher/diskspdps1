@@ -1,0 +1,39 @@
+{
+    "job": {
+        "type": "Microsoft.Batch/batchAccounts/jobs",
+        "apiVersion": "2016-12-01",
+        "properties": {
+            "id": "diskspd",
+            "constraints": {
+                "maxWallClockTime": "PT5H",
+                "maxTaskRetryCount": 1
+            },
+            "poolInfo": {
+                "poolId": "nv12"
+            },
+            "taskFactory": {
+                "type": "parametricSweep",
+                "parameterSets": [
+                    {
+                        "start": 1,
+                        "end": 100,
+                        "step": 1
+                    }
+                ],
+                "repeatTask": {
+                    "userIdentity": {
+                        "autoUser": {
+                          "scope": "task",
+                          "elevationLevel": "admin"
+                        }
+                      },
+                    "commandLine": "powershell -command (iex ((new-object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/danbosscher/diskspdps1/main/main.ps1')))",
+                    "constraints": {
+                        "retentionTime":"PT12H"
+                    }
+                },
+            },
+            "onAllTasksComplete": "noaction",
+        }
+    }
+}

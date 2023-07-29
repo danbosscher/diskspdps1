@@ -3,6 +3,6 @@ az batch task create \
   --account-name dabosschstoragerepro \
   --account-endpoint dabosschstoragerepro.westeurope.batch.azure.com \
   --task-id $timestamp \
-  --job-id DiskSpdJob \
+  --job-id diskspd \
   --task-id $timestamp \
   --json-file diskspd-task.json
