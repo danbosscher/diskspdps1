@@ -1,4 +1,5 @@
 ## Powershell script to run Diskspd across Azure Batch nodes
+## https://github.com/danbosscher/diskspdps1
 
 # Variables
 $url="https://aka.ms/getdiskspd"
@@ -12,11 +13,21 @@ if (-not(Test-Path -Path $diskspd)) {
         $client.DownloadFile("https://aka.ms/getdiskspd","$temp\diskspd.zip")
         Expand-Archive -LiteralPath $temp\diskspd.zip -DestinationPath $diskspd
     }
+    catch {
+        Write-Output "Error downloading or extracting diskspd archive: $_"
+        exit 1
+    }
 }
 
 # Delete old test file if present
 if (Test-Path -Path $temp\test.dat) {
-    Remove-Item -Path $temp\test.dat
+    try {
+        Remove-Item -Path $temp\test.dat
+    }
+    catch {
+        Write-Output "Error removing old test file: $_"
+        exit 1
+    }
     Write-Output "This is an existing node"
 }
 else {
