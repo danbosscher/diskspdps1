@@ -30,5 +30,5 @@ else {
 }
 
 # Run diskspd
-C:\diskspd\amd64\diskspd.exe -d10 -W15 -C15 -L -r -w40 -t8 -b64K -Su -c10G C:\temp\test.dat
+C:\diskspd\amd64\diskspd.exe -d10 -W15 -C15 -L -r -w40 -t8 -b64K -Su -c10G C:\temp\test.dat > $AZ_BATCH_TASK_WORKING_DIR/$env:computername.txt
 exit 0

@@ -3,7 +3,7 @@
         "type": "Microsoft.Batch/batchAccounts/jobs",
         "apiVersion": "2016-12-01",
         "properties": {
-            "id": "diskspd2",
+            "id": "diskspd2-quick3",
             "constraints": {
                 "maxWallClockTime": "PT5H",
                 "maxTaskRetryCount": 1
@@ -33,7 +33,7 @@
                     },
                     "outputFiles": [
                         {
-                            "filePattern": "../*",
+                            "filePattern": "*.xml",
                             "destination": {
                                 "autoStorage": {
                                     "path": "*",
